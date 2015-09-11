@@ -26,10 +26,9 @@ front-setup:
 db-setup:
 	$(ZCAT) ddl/user.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 	$(ZCAT) ddl/message.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
-	$(PHP) src/setup/setup_memcache.php
 
 memcache-setup:
-	$(PHP) app/setup_memcache.php
+	$(PHP) src/setup/setup_memcache.php
 
 install: php-setup config-setup front-setup db-setup memcache-setup
 
