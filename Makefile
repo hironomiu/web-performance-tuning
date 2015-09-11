@@ -12,24 +12,26 @@ PORT?=8888
 NPM?=$(shell which npm)
 BOWER?=$(shell pwd)/node_modules/bower/bin/bower
 
-setup:
+php-setup:
 	$(PHP) -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));"
+	$(PHP) composer.phar install
+
+config-setup:
+	$(CP) src/config.php.template src/config.php
+
+front-setup:
+	$(NPM) install
+	$(BOWER) install
 
 db-setup:
 	$(ZCAT) ddl/user.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 	$(ZCAT) ddl/message.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
+	$(PHP) src/setup/setup_memcache.php
 
 memcache-setup:
 	$(PHP) app/setup_memcache.php
 
-install: setup
-	$(PHP) composer.phar install
-	$(CP) src/config.php.template src/config.php
-	$(ZCAT) ddl/user.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
-	$(ZCAT) ddl/message.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
-	$(PHP) app/setup_memcache.php
-	$(NPM) install
-	$(BOWER) install
+install: php-setup config-setup front-setup db-setup memcache-setup
 
 server:
 	$(PHP) -S $(HOST):$(PORT) -t ./public_html
