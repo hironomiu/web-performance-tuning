@@ -1,0 +1,12 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<title>Sunrise2014</title>
+
+{% if birthday %}
+<h3>誕生日：{{ birthday }}</h3>
+{% endif %}
+{% if sex %}
+<h3>性別：{{ sex }}</h3>
+{% endif %}
+{% endblock %}

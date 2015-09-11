@@ -1,0 +1,13 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<h1>exercise_part4</h1>
+{%if messages %}
+  <ul>
+  {% for message in messages %}
+    <li>{{ message.title }} {{ message.message }} ({{ message.created_at }})</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+</form>
+{% endblock %}

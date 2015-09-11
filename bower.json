@@ -1,0 +1,9 @@
+{
+  "name": "web-performance-tuning",
+  "description": "scripts for Application",
+  "dependencies": {
+    "vue": "~0.12.4",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "web-web-performance-tuning",
+  "private": true,
+  "devDependencies": {
+    "bower": "~1.3.12"
+  }
+}
