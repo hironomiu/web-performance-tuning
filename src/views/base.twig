@@ -1,11 +1,73 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="/base.css">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Message AP</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+
+  </head>
 
   <body>
-    {% block content %}{% endblock %}
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="#">MyPage</a></li>
+            <li role="presentation"><a href="#">Settings</a></li>
+            <li role="presentation"><a href="#">Message</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-primary">Messageアプリ</h3>
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-4 well">
+          <h4>Messages</h4>
+          {% block messages %}{% endblock %}
+
+          <h4>follow</h4>
+          {% block follow %}{% endblock %}
+
+          <h4>follower</h4>
+          {% block follower %}{% endblock %}
+
+        </div>
+
+        <div class="col-lg-8">
+          <div class="well">
+            <p>Messageを書く</p>
+            <form>
+              <div class="form-group">
+                <textarea class="form-control" rows="3"></textarea>
+              </div>
+              <div align="right">
+                <button type="submit" class="btn btn-info">Submit</button>
+              </div>
+            </form>
+          </div>
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; Company 2015</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
   </body>
 </html>
+
