@@ -1,16 +1,19 @@
 {% extends "base.twig" %}
+{% block username %}
+<div style="background:#ffeeee; padding:10px; border:1px solid #ff0000; border-radius:20px;">{{ username }}</div>
+{% endblock %}
 {% block messages %}
-15
+<a href="/"><span class="badge">{{ messages }}</span></a>
 {% endblock %}
 {% block follow %}
-15
+<a href="/"><span class="badge">{{ follow }}</span></a>
 {% endblock %}
 {% block follower %}
-15
+<a href="/"><span class="badge">{{ follower }}</span></a>
 {% endblock %}
 {% block content %}
-<al class="list-unstyled">
-  <li>
+<al class="list-unstyled" id="al">
+  <li style="border-style:solid;border-width: thin;border-color:#e3e3e3;">
     <p>message</p>
     <p>hogehoge</p> 
   </li>

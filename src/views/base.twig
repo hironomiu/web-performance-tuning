@@ -17,21 +17,22 @@
   </head>
 
   <body>
-
     <div class="container">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="#">MyPage</a></li>
-            <li role="presentation"><a href="#">Settings</a></li>
-            <li role="presentation"><a href="#">Message</a></li>
+            <li role="button"><a href="#">MyMessages</a></li>
+            <li role="button"><a href="#">Settings</a></li>
+            <li role="button"><a href="#" id="logout" onClick="alert(0);">Logout</a></li>
           </ul>
         </nav>
-        <h3 class="text-primary">Messageアプリ</h3>
+        <h3 class="text-primary">Message AP</h3>
       </div>
 
       <div class="row marketing">
-        <div class="col-lg-4 well">
+        <div class="col-lg-4 well" style="background-color:#BFE0EC;">
+          <h4>Name</h4>
+          {% block username %}{% endblock %}
           <h4>Messages</h4>
           {% block messages %}{% endblock %}
 
@@ -44,14 +45,13 @@
         </div>
 
         <div class="col-lg-8">
-          <div class="well">
-            <p>Messageを書く</p>
-            <form>
+          <div class="well" style="background-color:#E5F2F7;">
+            <form method="POST" action="/messages">
               <div class="form-group">
-                <textarea class="form-control" rows="3"></textarea>
+                <textarea class="form-control" placeholder="Post a Message" rows="3" name="message"></textarea>
               </div>
               <div align="right">
-                <button type="submit" class="btn btn-info">Submit</button>
+                <button type="submit" class="btn btn-info" id="post-button">Post</button>
               </div>
             </form>
           </div>
@@ -64,10 +64,20 @@
       </footer>
 
     </div> <!-- /container -->
-
-
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script>
+        $("#post-button").click(function(){
+            $.ajax({
+                method: "GET",
+                url: "/messages",
+                dataType: 'json',
+            })
+            .done(function( msg ) {
+                $("#al").append('<li style="border-style:solid;border-width: thin;border-color:#e3e3e3;">' + msg.username + '</li>' );
+            });
+        });
+    </script>
   </body>
 </html>
 
