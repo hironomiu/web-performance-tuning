@@ -1,12 +1,17 @@
 {% extends "base.twig" %}
 
-{% block content %}
-<title>Sunrise2014</title>
-
-{% if birthday %}
-<h3>誕生日：{{ birthday }}</h3>
-{% endif %}
-{% if sex %}
-<h3>性別：{{ sex }}</h3>
-{% endif %}
+{% block post_url %}
+/chapter1/write
+{% endblock %}
+{% block username%}
+<div style="background:#ffeeee; padding:10px; border:1px solid #ff0000; border-radius:20px;"> {{ user }} </div>
+{% endblock %}
+{% block messages %}
+<a href="/"><span class="badge"> {{ messages }} </span></a>
+{% endblock %}
+{% block follow %}
+<a href="/"><span class="badge">{{ follow }}</span></a>
+{% endblock %}
+{% block follower %}
+<a href="/"><span class="badge">{{ follower }}</span></a>
 {% endblock %}

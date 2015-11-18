@@ -46,7 +46,7 @@
 
         <div class="col-lg-8">
           <div class="well" style="background-color:#E5F2F7;">
-            <form method="POST" action="/messages">
+            <form method="POST" action="{% block post_url %}{% endblock %}" >
               <div class="form-group">
                 <textarea class="form-control" placeholder="Post a Message" rows="3" name="message"></textarea>
               </div>
@@ -74,7 +74,7 @@
                 dataType: 'json',
             })
             .done(function( msg ) {
-                $("#al").append('<li style="border-style:solid;border-width: thin;border-color:#e3e3e3;">' + msg.username + '</li>' );
+                var nesting = $("#ul").append('<li style="border-style:solid;border-width: thin;border-color:#e3e3e3;">' + msg.username + '</li>' );
             });
         });
     </script>

@@ -5,12 +5,33 @@ $app->get('/exercise/part1',function() use($app) {
 });
 
 $app->get('/exercise/part2',function() use($app) {
+    $sql = 'select * from  user where id = ?';
+    $id = mt_rand(1,100000);
     $con = $app['db'];
-    $sql = 'select birthday,sex from  user where id = ?';
     $sth = $con->prepare($sql);
-    $sth->execute(array(mt_rand(1,1000007)));
+    $sth->execute(array($id));
     $result = $sth->fetch(PDO::FETCH_BOTH);
-    return $app['twig']->render('exercise_part2.twig',['birthday' => $result['birthday'],'sex' => $result['sex']===1?'男':'女']);
+    $user = $result['name'];
+
+    $sql = 'select count(*) as messages from message where user_id = ?';
+    $sth = $con->prepare($sql);
+    $sth->execute(array($id));
+    $result = $sth->fetch(PDO::FETCH_BOTH);
+    $messages = $result['messages'];
+
+    $sql = 'select count(*) as follow from  follows where user_id = ?';
+    $sth = $con->prepare($sql);
+    $sth->execute(array($id));
+    $result = $sth->fetch(PDO::FETCH_BOTH);
+    $follow = $result['follow'];
+
+    $sql = 'select count(*) as follower from  follows where follow_user_id = ?';
+    $sth = $con->prepare($sql);
+    $sth->execute(array($id));
+    $result = $sth->fetch(PDO::FETCH_BOTH);
+    $follower = $result['follower'];
+
+    return $app['twig']->render('exercise_part2.twig',['user' => $user,'messages' => $messages,'follow' => $follow,'follower' => $follower]);
 });
 
 $app->post('/exercise/part3',function() use($app) {
