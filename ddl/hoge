@@ -1,0 +1,14 @@
+create table follows (
+id int NOT NULL AUTO_INCREMENT,
+user_id int NOT NULL,
+follow_user_id int NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`user_id`,`follow_user_id`)
+);
+
+
+insert into follows select null,id ,(SELECT id FROM `sandbox` ORDER BY RAND() LIMIT 1),now(),now();
+insert into follows select null,id ,ROUND(RAND() * 1000006),now(),now();
+insert into follows select null,id ,ROUND(RAND() * 1000006),now(),now() from user;
