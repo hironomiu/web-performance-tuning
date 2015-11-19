@@ -1,7 +1,12 @@
 <?php
+date_default_timezone_set('Asia/Tokyo');
 
 $app->get('/exercise/part1',function() use($app) {
-    return $app['twig']->render('exercise_part1.twig');
+    $message_line = [];
+    for($i = 0; $i <= 1000; $i++){
+        $message_line[] = ['message' => 'Sunrise' . date('Y') . '　チューニングバトル！誰が栄冠の1位になるのか？0.001秒を削る熱いバトル！！！誰が？誰が？誰が？誰が栄冠の1位に！！！！！！！！！！！'];
+    }
+    return $app['twig']->render('exercise_part1.twig',['message_line' => $message_line]);
 });
 
 $app->get('/exercise/part2',function() use($app) {
