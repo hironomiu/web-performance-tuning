@@ -23,7 +23,7 @@ $app['memcached'] = function() use($app,$host,$memcachedConfig){
 };
 
 $con = $app['db'];
-$sql = 'select id,name from user order by id';
+$sql = 'select id,name from users order by id';
 $sth = $con->prepare($sql);
 $sth->execute();
 while($result = $sth->fetch(PDO::FETCH_ASSOC)){

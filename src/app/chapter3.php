@@ -1,7 +1,7 @@
 <?php
 
 $app->get('/chapter3/db',function() use($app) {
-    $sql = 'select name from  user where id = ?';
+    $sql = 'select name from  users where id = ?';
     $con = $app['db'];
     $sth = $con->prepare($sql);
     $sth->execute(array(mt_rand(1,100000)));

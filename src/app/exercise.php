@@ -5,7 +5,7 @@ $app->get('/exercise/part1',function() use($app) {
 });
 
 $app->get('/exercise/part2',function() use($app) {
-    $sql = 'select * from  user where id = ?';
+    $sql = 'select * from  users where id = ?';
     $id = mt_rand(1,100000);
     $con = $app['db'];
     $sth = $con->prepare($sql);
@@ -36,7 +36,7 @@ $app->get('/exercise/part2',function() use($app) {
 
 $app->post('/exercise/part3',function() use($app) {
     $con = $app['db'];
-    $sql = 'insert into message values(null,?,?,?,now(),now())';
+    $sql = 'insert into messages values(null,?,?,?,now(),now())';
     $sth = $con->prepare($sql);
     $id = mt_rand(1,1000007);
     $sth->execute(array($id,$_POST['title'],$_POST['message'].'by '.$id));
@@ -45,7 +45,7 @@ $app->post('/exercise/part3',function() use($app) {
 
 $app->get('/exercise/part4',function() use($app) {
     $con = $app['db'];
-    $sql = 'select * from  message where title = ? order by created_at desc limit 10';
+    $sql = 'select * from messages where title = ? order by created_at desc limit 10';
     $sth = $con->prepare($sql);
     $sth->execute(array('チューニングバトル'));
     $results = $sth->fetchAll();

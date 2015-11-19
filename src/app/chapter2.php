@@ -1,7 +1,7 @@
 <?php
 
 $app->get('/chapter2',function() use($app) {
-    $sql = 'select * from message where user_id = ?';
+    $sql = 'select * from messages where user_id = ?';
     $con = $app['db'];
     $sth = $con->prepare($sql);
     $sth->execute(array($app['request']->get('user_id')));
@@ -10,7 +10,7 @@ $app->get('/chapter2',function() use($app) {
 });
 
 $app->post('/chapter2', function() use($app) {
-    $sql = 'insert into message values(null,?,?,?,now(),now())';
+    $sql = 'insert into messages values(null,?,?,?,now(),now())';
     $con = $app['db'];
     $sth = $con->prepare($sql);
     $sth->execute( array( $app['request']->get('user_id'),$app['request']->get('title'),$app['request']->get('message')));

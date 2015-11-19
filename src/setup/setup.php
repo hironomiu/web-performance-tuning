@@ -3,7 +3,7 @@ set_time_limit(9900);
 
 $app->get('/memcache_setup',function() use($app) {
     $con = $app['db'];
-    $sql = 'select id,password from user';
+    $sql = 'select id,password from users';
     $sth = $con->prepare($sql);
     $sth->execute();
     while($result = $sth->fetch(PDO::FETCH_ASSOC)){
@@ -16,14 +16,14 @@ $app->get('/memcache_setup',function() use($app) {
 
 $app->get('/mysql_setup',function() use($app) {
     $con = $app['db'];
-    $sql = 'select count(*) as count from user';
+    $sql = 'select count(*) as count from users';
     $sth = $con->prepare($sql);
     $sth->execute();
     $result = $sth->fetch(PDO::FETCH_BOTH);
     if($result['count'] > 0){
         $message = 'データが存在します。';
     }else{
-        $sql = 'insert into user values(null,?,?,?,?,?,?,?,now(),now())';
+        $sql = 'insert into users values(null,?,?,?,?,?,?,?,now(),now())';
         $sth = $con->prepare($sql);
         for($l = 0;$l < 1000000; $l++){
         //for($l = 0;$l < 100; $l++){
@@ -53,7 +53,7 @@ $app->get('/mysql_setup',function() use($app) {
 
 $app->get('/exercise_mysql_setup',function() use($app) {
     $con = $app['db'];
-    $sql = 'insert into message values(null,?,?,?,now(),now())';
+    $sql = 'insert into messages values(null,?,?,?,now(),now())';
     $sth = $con->prepare($sql);
     for($i = 0;$message = null,$i < 10000000; $i++){
         $user = mt_rand(1,100000);
