@@ -24,8 +24,8 @@ front-setup:
 	$(BOWER) install
 
 db-setup:
-	$(ZCAT) ddl/user.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
-	$(ZCAT) ddl/message.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
+	$(ZCAT) ddl/users.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
+	$(ZCAT) ddl/messages.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 	$(ZCAT) ddl/follows.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
 
 memcache-setup:
@@ -37,7 +37,7 @@ server:
 	$(PHP) -S $(HOST):$(PORT) -t ./public_html
 
 db-backup:
-	$(MYSQLDUMP) -u$(DB_USER) $(DB_SCHEMA) user -p$(DB_PASS) | $(GZIP) > ddl/user.dump.gz
-	$(MYSQLDUMP) -u$(DB_USER) $(DB_SCHEMA) message -p$(DB_PASS) | $(GZIP) > ddl/message.dump.gz
+	$(MYSQLDUMP) -u$(DB_USER) $(DB_SCHEMA) users -p$(DB_PASS) | $(GZIP) > ddl/users.dump.gz
+	$(MYSQLDUMP) -u$(DB_USER) $(DB_SCHEMA) messages -p$(DB_PASS) | $(GZIP) > ddl/messages.dump.gz
 	$(MYSQLDUMP) -u$(DB_USER) $(DB_SCHEMA) follows -p$(DB_PASS) | $(GZIP) > ddl/follows.dump.gz
 

@@ -49,5 +49,9 @@ $app->get('/exercise/part4',function() use($app) {
     $sth = $con->prepare($sql);
     $sth->execute(array('チューニングバトル'));
     $results = $sth->fetchAll();
-    return $app['twig']->render('exercise_part4.twig',['messages' => $results]);
+    return $app['twig']->render('exercise_part2.twig',['messages' => $results]);
+});
+
+$app->get('/exercise/part5',function() use($app) {
+    return $app['twig']->render('exercise_part5.twig');
 });
