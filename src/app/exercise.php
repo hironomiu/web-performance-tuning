@@ -13,7 +13,7 @@ $app->get('/exercise/part2',function() use($app) {
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $user = $result['name'];
 
-    $sql = 'select count(*) as messages from message where user_id = ?';
+    $sql = 'select count(*) as messages from messages where user_id = ?';
     $sth = $con->prepare($sql);
     $sth->execute(array($id));
     $result = $sth->fetch(PDO::FETCH_BOTH);
@@ -31,7 +31,11 @@ $app->get('/exercise/part2',function() use($app) {
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $follower = $result['follower'];
 
-    return $app['twig']->render('exercise_part2.twig',['user' => $user,'messages' => $messages,'follow' => $follow,'follower' => $follower]);
+    $sql = 'select * from messages where id = ? order by created_at desc limit 10';
+    $sth = $con->prepare($sql);
+    $sth->execute(array($id));
+    $message_line = $sth->fetchAll();
+    return $app['twig']->render('exercise_part2.twig',['user' => $user,'messages' => $messages,'follow' => $follow,'follower' => $follower,'message_line' => $message_line]);
 });
 
 $app->post('/exercise/part3',function() use($app) {
@@ -48,8 +52,8 @@ $app->get('/exercise/part4',function() use($app) {
     $sql = 'select * from messages where title = ? order by created_at desc limit 10';
     $sth = $con->prepare($sql);
     $sth->execute(array('チューニングバトル'));
-    $results = $sth->fetchAll();
-    return $app['twig']->render('exercise_part2.twig',['messages' => $results]);
+    $message_line = $sth->fetchAll();
+    return $app['twig']->render('exercise_part2.twig',['message_line' => $message_line]);
 });
 
 $app->get('/exercise/part5',function() use($app) {

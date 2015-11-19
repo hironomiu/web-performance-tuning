@@ -15,3 +15,13 @@
 {% block follower %}
 <a href="/"><span class="badge">{{ follower }}</span></a>
 {% endblock %}
+{% block content%}
+{%if message_line %}
+  <ul>
+  {% for message in message_line %}
+    <li> {{ message.message }} ({{ message.created_at }})</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
+
