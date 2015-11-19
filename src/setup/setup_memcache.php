@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../../vendor/autoload.php';
 require_once __DIR__ . '/../config.php';
 use Silex\Application;
+ini_set('memory_limit', '256M');
 
 $app = new Application();
 
@@ -22,12 +23,12 @@ $app['memcached'] = function() use($app,$host,$memcachedConfig){
 };
 
 $con = $app['db'];
-$sql = 'select id,password from user';
+$sql = 'select id,name from user order by id';
 $sth = $con->prepare($sql);
 $sth->execute();
 while($result = $sth->fetch(PDO::FETCH_ASSOC)){
     $mem = $app['memcached'];
-    $mem->set($result['id'],$result['password'] );
+    $mem->set($result['id'],$result['name'] );
     if($result['id'] % 10000 === 0){
         echo $result['id']."\n";
     }

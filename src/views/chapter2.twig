@@ -1,21 +1,12 @@
 {% extends "base.twig" %}
 
-{% block content %}
-<h1>Chapter2</h1>
-<form method="POST" action="/chapter2">
-タイトル<p>
-<input type="text" name="title" />
-<p>
-<textarea name="message">メッセージ</textarea>
-<p>
-<input type="hidden" name="user_id" value="1000007">
-<button type="submit">投稿する</button>
+{% block content%}
 {%if messages %}
   <ul>
   {% for message in messages %}
-    <li>{{ message.title }} {{ message.message }} ({{ message.created_at }})</li>
+    <li> {{ message.message }} ({{ message.created_at }})</li>
   {% endfor %}
   </ul>
 {% endif %}
-
 {% endblock %}
+

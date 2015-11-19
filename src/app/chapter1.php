@@ -15,6 +15,7 @@ $app->post('/chapter1/write',function() use($app) {
     $sth = $con->prepare($sql);
     $id = mt_rand(1,1000007);
     $sth->execute(array($id,'title',$_POST['message'].'by '.$id));
-    return $app->redirect('/chapter1/read');
+    //return $app->redirect('/chapter1/read');
+    return "Success!";
 });
 
