@@ -16,9 +16,6 @@ $ git clone https://github.com/hironomiu/web-performance-tuning.git
 $ make install
 ```
 
-## browse
-
-http://192.168.56.130
 
 ## tips
 ### DB周りの接続設定
