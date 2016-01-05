@@ -15,12 +15,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app['db'] = function() use($app,$host,$mysqldConfig){
-    try{
-        $con = new PDO(sprintf('mysql:host=%s;dbname=%s;charset=utf8', $host, $mysqldConfig['database']), $mysqldConfig['user'], $mysqldConfig['password'], array(PDO::ATTR_EMULATE_PREPARES => false));
-    }catch (PDOException $e) {
-        echo 'Connection failed: ' . $e->getMessage();
-        die;
-    }
+    $con = new PDO(sprintf('mysql:host=%s;dbname=%s;charset=utf8', $host, $mysqldConfig['database']), $mysqldConfig['user'], $mysqldConfig['password'], array(PDO::ATTR_EMULATE_PREPARES => false));
     return $con;
 };
 
