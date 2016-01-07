@@ -1,18 +1,20 @@
 <?php
 
-$app->get('/chapter2',function() use($app) {
+$app->get('/chapter2',function($request,$response,$args) {
+    $req = $request->getQueryParams();
     $sql = 'select * from messages where user_id = ?';
-    $con = $app['db'];
+    $con = $this->get('pdo');
     $sth = $con->prepare($sql);
-    $sth->execute(array($app['request']->get('user_id')));
+    $sth->execute(array($req['user_id']));
     $results = $sth->fetchAll();
-    return $app['twig']->render('chapter2.twig',['messages' => $results]);
+    return $this->view->render($response,'chapter2.twig',['messages' => $results]);
 });
 
-$app->post('/chapter2', function() use($app) {
+$app->post('/chapter2',function($request,$response,$args) {
+    $req = $request->getParsedBody();
     $sql = 'insert into messages values(null,?,?,?,now(),now())';
-    $con = $app['db'];
+    $con = $this->get('pdo');
     $sth = $con->prepare($sql);
-    $sth->execute( array( $app['request']->get('user_id'),$app['request']->get('title'),$app['request']->get('message')));
-    return $app->redirect('/chapter2?user_id=1000001');
+    $sth->execute( array( $req['user_id'],$req['title'],$req['message']));
+    return $this->view->redirect('/chapter2?user_id='.$req['user_id']);
 });
