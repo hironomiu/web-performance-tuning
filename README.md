@@ -29,3 +29,6 @@ $ vi app/config.php
 ```
 $ HOST=xxx.xxx.xxx.xxx PORT=xxxx make server
 ```
+
+### cacheディレクトリのパーミッション
+src/cacheはWebサーバが書き込み可能な状態にすること
