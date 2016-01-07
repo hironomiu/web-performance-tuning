@@ -1,2 +1,0 @@
-http://localhost/chapter1/read
-http://localhost/chapter1/write POST message=chapter1-write
