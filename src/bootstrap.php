@@ -2,26 +2,45 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/config.php';
 
-use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
+// Create app
+$app = new \Slim\App(['settings' => ['displayErrorDetails' => true]]);
 
-$app = new Application();
+// Get container
+$container = $app->getContainer();
 
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path'       => __DIR__ . '/views',
-    'twig.class_path' => __DIR__ . '/../vendor/twig/lib',
-));
+// Register component on container
+$container['view'] = function ($container) {
+    $view = new \Slim\Views\Twig(
+         __DIR__ . '/views',
+        [
+            'cache' => __DIR__ . '/cache',
+            'debug' => true,
+    ]);
 
-$app->register(new Silex\Provider\SessionServiceProvider());
+    $view->addExtension(new \Slim\Views\TwigExtension(
+        $container['router'],
+        $container['request']->getUri()
+    ));
+    //$view->addExtension(new Twig_Extension_Debug());
 
-$app['db'] = function() use($app,$host,$mysqldConfig){
-    $con = new PDO(sprintf('mysql:host=%s;dbname=%s;charset=utf8', $host, $mysqldConfig['database']), $mysqldConfig['user'], $mysqldConfig['password'], array(PDO::ATTR_EMULATE_PREPARES => false));
-    return $con;
+    return $view;
 };
 
-$app['memcached'] = function() use($app,$host,$memcachedConfig){
+/*
+
+$app = new \Slim\Slim(array(
+    'mode' => 'production',
+    'view' => new \Slim\Views\Twig(),
+    'templates.path' => __DIR__ . '/views'
+));
+$app->db = function() use($app,$host,$mysqldConfig){
+    $con = new PDO(sprintf('mysql:host=%s;dbname=%s;charset=utf8', $host, $mysqldConfig['database']), $mysqldConfig['user'], $mysqldConfig['password'], array(PDO::ATTR_EMULATE_PREPARES => false, PDO::ATTR_PERSISTENT => true));
+    return $con;
+};
+$app->container['memcached'] = function() use($app,$host,$memcachedConfig){
     $mem = new Memcached();
     $mem->addServer($host,$memcachedConfig['port']);
     return $mem;
 };
 
+*/

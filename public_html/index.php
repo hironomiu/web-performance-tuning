@@ -1,6 +1,13 @@
 <?php
 require_once __DIR__ . '/../src/bootstrap.php';
 require_once __DIR__ . '/../src/app/login.php';
+require_once __DIR__ . '/../src/app/exercise.php';
+use Symfony\Component\HttpFoundation\Request;
+
+$app->run();
+/*
+require_once __DIR__ . '/../src/bootstrap.php';
+require_once __DIR__ . '/../src/app/login.php';
 require_once __DIR__ . '/../src/app/messages.php';
 require_once __DIR__ . '/../src/app/chapter1.php';
 require_once __DIR__ . '/../src/app/chapter2.php';
@@ -24,3 +31,4 @@ $app->get('/info',function() use($app) {
 });
 
 $app->run();
+*/

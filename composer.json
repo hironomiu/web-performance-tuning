@@ -1,7 +1,7 @@
 {
     "require":{
-        "silex/silex":"1.1.*",
-        "twig/twig": "v1.13.0"
+        "slim/slim":"*",
+        "slim/twig-view":"*"
     },
     "autoload":{
         "psr-0":{"":"src"}
