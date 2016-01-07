@@ -7,7 +7,6 @@ $app->get('/chapter1/read',function($request,$response,$args) {
     $sth->execute(array(mt_rand(1,100000)));
     $result = $sth->fetch(PDO::FETCH_BOTH);
     return $this->view->render($response,'chapter1.twig',['user' => $result['name']]);
-    //return $this->view->render($response,'chapter1.twig',$result['name']]);
 });
 
 $app->post('/chapter1/write',function($request,$response,$args) {

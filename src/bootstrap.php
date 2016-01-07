@@ -31,13 +31,8 @@ $container['pdo'] = function() use($container,$host,$mysqldConfig){
 };
 
 
-/*
-
-
-$app->container['memcached'] = function() use($app,$host,$memcachedConfig){
+$container['memcached'] = function() use($container,$host,$mysqldConfig){
     $mem = new Memcached();
     $mem->addServer($host,$memcachedConfig['port']);
     return $mem;
 };
-
-*/
