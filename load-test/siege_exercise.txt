@@ -1,0 +1,5 @@
+http://localhost/exercise/part1
+http://localhost/exercise/part2
+http://localhost/exercise/part3 POST title=チューニングバトル&message=後半に向けて頑張ろう！！
+http://localhost/exercise/part4
+http://localhost/exercise/part5
