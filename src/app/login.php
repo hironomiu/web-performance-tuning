@@ -1,26 +1,35 @@
 <?php
 
-$app->get('/login',function ($request, $response, $args) use($app) {
-    $req = $request->getQueryParams();
-    if(!empty($req['user_id'])){
-        return $app->redirect('/');
+$app->get('/login',function ($request, $response, $args) {
+    $session = $this->get('session');
+    if(!(is_null($session->get('user_id')))){
+        return $response->withStatus(301)->withHeader('Location', '/');
     }
     return $this->view->render($response,'login.twig',$args);
 });
 
-/*
-$app->get('/logout',function() use($app) {
-    $app['session']->clear();
-    return $app->redirect('/');
+$app->post('/login',function ($request, $response, $args) {
+    $session = $this->get('session');
+    if(!(is_null($session->get('user_id')))){
+        return $response->withStatus(301)->withHeader('Location', '/');
+    }
+    $session->regenerate();
+    $session->set('user_id', "1");
+    $session->set('username', "hironomiuhoge");
+    return $response->withStatus(301)->withHeader('Location', '/');
 });
 
-$app->post('/login',function() use($app) {
-    if(!empty($app['session']->get('user_id'))){
-        return $app->redirect('/');
-    }
-    $app['session']->start();
-    $app['session']->set('user_id', "1");
-    $app['session']->set('username', "hironomiuhoge");
-    return $app->redirect('/');
+$app->get('/logout',function ($request, $response, $args) {
+    $session = $this->get('session');
+    $session->destroy();
+    return $response->withStatus(301)->withHeader('Location', '/');
 });
-*/
+
+$app->get('/',function ($request, $response, $args) {
+    $session = $this->get('session');
+    if(is_null($session->get('user_id'))){
+        return $response->withStatus(301)->withHeader('Location', '/login');
+    }
+    echo "hello!";
+//    return $app['twig']->render('index.twig',['username' => $app['session']->get('username'),'messages' => 15,'follow' => 10 ,'follower' => 20]);
+});

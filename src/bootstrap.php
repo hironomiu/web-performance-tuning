@@ -36,3 +36,7 @@ $container['memcached'] = function() use($container,$host,$mysqldConfig){
     $mem->addServer($host,$memcachedConfig['port']);
     return $mem;
 };
+
+$container['session'] = function() {
+        return new \Ap\Session();
+};
