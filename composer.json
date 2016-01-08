@@ -4,6 +4,6 @@
         "slim/twig-view":"*"
     },
     "autoload":{
-        "psr-0":{"":"src"}
+	"psr-4": { "Ap\\": "src/Ap/" }
     }
 }
