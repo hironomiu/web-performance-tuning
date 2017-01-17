@@ -1,0 +1,12 @@
+{% extends "base.twig" %}
+
+{% block content%}
+{%if messages %}
+  <ul>
+  {% for message in messages %}
+    <li> {{ message.message }} ({{ message.created_at }})</li>
+  {% endfor %}
+  </ul>
+{% endif %}
+{% endblock %}
+
