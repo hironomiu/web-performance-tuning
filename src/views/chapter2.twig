@@ -2,11 +2,9 @@
 
 {% block content%}
 {%if messages %}
-  <ul>
   {% for message in messages %}
-    <li> {{ message.message }} ({{ message.created_at }})</li>
+  <div class="well well-sm">{{ message.message }} ({{ message.created_at }})</div>
   {% endfor %}
-  </ul>
 {% endif %}
 {% endblock %}
 
