@@ -11,8 +11,10 @@ $app->get('/1day/tutorial',function($request,$response,$args) {
 });
 
 $app->get('/1day/chapter2-1',function($request,$response,$args) {
-    $sql = 'select * from  users where id = ?';
+
     $id = mt_rand(1,100000);
+
+    $sql = 'select * from  users where id = ?';
     $con = $this->get('pdo');
     $sth = $con->prepare($sql);
     $sth->execute(array($id));
@@ -23,7 +25,7 @@ $app->get('/1day/chapter2-1',function($request,$response,$args) {
     $sth = $con->prepare($sql);
     $sth->execute(array($id));
     $result = $sth->fetch(PDO::FETCH_BOTH);
-    $messages = $result['messages'];
+    $message_count = $result['messages'];
 
     $sql = 'select count(*) as follow from  follows where user_id = ?';
     $sth = $con->prepare($sql);
@@ -40,8 +42,10 @@ $app->get('/1day/chapter2-1',function($request,$response,$args) {
     $sql = 'select * from messages where user_id = ? order by created_at desc limit 10';
     $sth = $con->prepare($sql);
     $sth->execute(array($id));
-    $message_line = $sth->fetchAll();
-    return $this->view->render($response,'exercise_part2.twig',['user' => $user,'messages' => $messages,'follow' => $follow,'follower' => $follower,'message_line' => $message_line]);
+    $messages = $sth->fetchAll();
+
+    //return $this->view->render($response,'exercise_part2.twig',['user' => $user,'messages' => $messages,'follow' => $follow,'follower' => $follower,'message_line' => $message_line]);
+    return $this->view->render($response,'chapter2.twig',['user' => $user,'message_count' => $message_count,'follow' => $follow,'follower' => $follower,'messages' => $messages]);
 });
 
 $app->get('/1day/chapter2-2',function($request,$response,$args) {
