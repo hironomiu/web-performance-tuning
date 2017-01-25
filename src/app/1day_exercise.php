@@ -56,7 +56,7 @@ $app->get('/1day/chapter3-2',function($request,$response,$args) {
     return $this->view->render($response,'chapter2.twig',['messages' => $messages]);
 });
 
-$app->get('/1day/chpter4',function($request,$response,$args) {
+$app->get('/1day/chapter4',function($request,$response,$args) {
     $con = $this->get('pdo');
     $sql = 'truncate table user_birth_month_count';
     $sth = $con->prepare($sql);
