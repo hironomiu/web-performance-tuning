@@ -10,7 +10,7 @@ $app->get('/1day/tutorial',function($request,$response,$args) {
     return $this->view->render($response,'chapter2.twig',['messages' => $results]);
 });
 
-$app->get('/1day/chapter2-1',function($request,$response,$args) {
+$app->get('/1day/chapter3-1',function($request,$response,$args) {
 
     $id = mt_rand(1,100000);
 
@@ -44,20 +44,19 @@ $app->get('/1day/chapter2-1',function($request,$response,$args) {
     $sth->execute(array($id));
     $messages = $sth->fetchAll();
 
-    //return $this->view->render($response,'exercise_part2.twig',['user' => $user,'messages' => $messages,'follow' => $follow,'follower' => $follower,'message_line' => $message_line]);
     return $this->view->render($response,'chapter2.twig',['user' => $user,'message_count' => $message_count,'follow' => $follow,'follower' => $follower,'messages' => $messages]);
 });
 
-$app->get('/1day/chapter2-2',function($request,$response,$args) {
+$app->get('/1day/chapter3-2',function($request,$response,$args) {
     $con = $this->get('pdo');
     $sql = 'select * from messages where title = ? order by created_at desc limit 10';
     $sth = $con->prepare($sql);
     $sth->execute(array($request->getQueryParams()['title']));
-    $message_line = $sth->fetchAll();
-    return $this->view->render($response,'exercise_part1.twig',['message_line' => $message_line]);
+    $messages = $sth->fetchAll();
+    return $this->view->render($response,'chapter2.twig',['messages' => $messages]);
 });
 
-$app->get('/1day/chpter3',function($request,$response,$args) {
+$app->get('/1day/chpter4',function($request,$response,$args) {
     $con = $this->get('pdo');
     $sql = 'truncate table user_birth_month_count';
     $sth = $con->prepare($sql);
@@ -116,7 +115,7 @@ $app->get('/1day/chpter3',function($request,$response,$args) {
     echo "バッチ処理insert 成功!";
 });
 
-$app->get('/1day/chapter4',function($request,$response,$args) {
+$app->get('/1day/chapter5',function($request,$response,$args) {
     $con = $this->get('pdo');
     $id = mt_rand(1,100000);
     $message = "キャンペーン中!!";
