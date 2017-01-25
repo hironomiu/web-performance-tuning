@@ -138,7 +138,7 @@ $app->get('/1day/chapter5',function($request,$response,$args) {
     return $this->view->render($response,'exercise_part8.twig',['title' => 'キャンペーン情報','id' => $id,'message' => $message]);
 });
 
-$app->get('/1day/chapter5',function($request,$response,$args) {
+$app->get('/1day/chapter6',function($request,$response,$args) {
     $con = $this->get('pdo');
     $sql = 'select * from users order by rand() limit 10';
     $sth = $con->prepare($sql);
@@ -147,7 +147,7 @@ $app->get('/1day/chapter5',function($request,$response,$args) {
     return $this->view->render($response,'exercise_part6.twig',['title' => 'オススメユーザ','users' => $users]);
 });
 
-$app->get('/1day/chapter6',function($request,$response,$args) {
+$app->get('/1day/chapter7',function($request,$response,$args) {
     $con = $this->get('pdo');
     $id = mt_rand(1,100000);
     $sql = 'select user_id,message,created_at from messages where user_id in (select follow_user_id from follows where user_id = ?) order by created_at desc limit 10';
@@ -158,7 +158,7 @@ $app->get('/1day/chapter6',function($request,$response,$args) {
     return $this->view->render($response,'exercise_part7.twig',['title' => $id . 'さんのタイムライン','time_lines' => $time_lines]);
 });
 
-$app->get('/1day/chpter7',function($request,$response,$args) {
+$app->get('/1day/chpter8',function($request,$response,$args) {
     $con = $this->get('pdo');
     $sql = '
             select count(*) as cnt 
