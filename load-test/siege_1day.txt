@@ -1,2 +1,0 @@
-http://localhost/1day/chapter2-1
-http://localhost/1day/chapter2-2?title=Hello!!
