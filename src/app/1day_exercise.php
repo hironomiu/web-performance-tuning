@@ -2,10 +2,11 @@
 
 $app->get('/1day/tutorial',function($request,$response,$args) {
     $req = $request->getQueryParams();
-    $sql = 'select * from messages where user_id = ?';
+    $sql = 'select * from messages where user_id = :user_id';
     $con = $this->get('pdo');
     $sth = $con->prepare($sql);
-    $sth->execute(array($req['user_id']));
+    $sth->bindValue(':user_id', (int)$req['user_id'], PDO::PARAM_INT);
+    $sth->execute();
     $results = $sth->fetchAll();
     return $this->view->render($response,'chapter2.twig',['messages' => $results]);
 });
@@ -14,33 +15,38 @@ $app->get('/1day/chapter3-1',function($request,$response,$args) {
 
     $id = mt_rand(1,100000);
 
-    $sql = 'select * from  users where id = ?';
+    $sql = 'select * from  users where id = :id';
     $con = $this->get('pdo');
     $sth = $con->prepare($sql);
-    $sth->execute(array($id));
+    $sth->bindValue(':id', (int)$id, PDO::PARAM_INT);
+    $sth->execute();
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $user = $result['name'];
 
-    $sql = 'select count(*) as messages from messages where user_id = ?';
+    $sql = 'select count(*) as messages from messages where user_id = :user_id';
     $sth = $con->prepare($sql);
-    $sth->execute(array($id));
+    $sth->bindValue(':user_id', (int)$id, PDO::PARAM_INT);
+    $sth->execute();
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $message_count = $result['messages'];
 
-    $sql = 'select count(*) as follow from  follows where user_id = ?';
+    $sql = 'select count(*) as follow from  follows where user_id = :user_id';
     $sth = $con->prepare($sql);
-    $sth->execute(array($id));
+    $sth->bindValue(':user_id', (int)$id, PDO::PARAM_INT);
+    $sth->execute();
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $follow = $result['follow'];
 
-    $sql = 'select count(*) as follower from  follows where follow_user_id = ?';
+    $sql = 'select count(*) as follower from  follows where follow_user_id = :user_id';
     $sth = $con->prepare($sql);
-    $sth->execute(array($id));
+    $sth->bindValue(':user_id', (int)$id, PDO::PARAM_INT);
+    $sth->execute();
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $follower = $result['follower'];
 
-    $sql = 'select * from messages where user_id = ? order by created_at desc limit 10';
+    $sql = 'select * from messages where user_id = :user_id order by created_at desc limit 10';
     $sth = $con->prepare($sql);
+    $sth->bindValue(':user_id', (int)$id, PDO::PARAM_INT);
     $sth->execute(array($id));
     $messages = $sth->fetchAll();
 
@@ -127,9 +133,10 @@ $app->get('/1day/chapter5',function($request,$response,$args) {
               (select avg(TIMESTAMPDIFF(YEAR,b.birthday,CURDATE())) AS age
                from users b
                where a.sex = b.sex)
-            and a.id = ?';
+            and a.id = :id';
     $sth = $con->prepare($sql);
-    $sth->execute(array($id));
+    $sth->bindValue(':id', (int)$id, PDO::PARAM_INT);
+    $sth->execute();
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $cnt = $result['cnt'];
     if ($cnt === 0){
@@ -152,9 +159,10 @@ $app->get('/1day/chapter7',function($request,$response,$args) {
     $id = mt_rand(1,100000);
 
     $con = $this->get('pdo');
-    $sql = 'select user_id,message,created_at from messages where user_id in (select follow_user_id from follows where user_id = ?) order by created_at desc limit 10';
+    $sql = 'select user_id,message,created_at from messages where user_id in (select follow_user_id from follows where user_id = :user_id) order by created_at desc limit 10';
     $sth = $con->prepare($sql);
-    $sth->execute(array($id));
+    $sth->bindValue(':id', (int)$id, PDO::PARAM_INT);
+    $sth->execute();
     $time_lines = $sth->fetchAll();
 
     return $this->view->render($response,'exercise_part7.twig',['title' => $id . 'さんのタイムライン','time_lines' => $time_lines]);
