@@ -21,7 +21,7 @@
       <div class="header clearfix">
         <h3 class="text-primary">Message AP</h3>
       </div>
-      <h1> {{ title }} <h1>
+      <h1> {{ title }} </h1>
       <div class="jumbotron">
       {% block content %}
       {%if users %}
@@ -32,10 +32,12 @@
       {% endblock %}
       </div>
 
-      <footer class="footer">
-        <p>&copy; Company 2015</p>
+      <div class="col-sm-12>
+      <footer class="footer text-center">
+        <hr>
+        <p class="text-center">&copy; Company 2017</p>
       </footer>
-
+      </div>
     </div> <!-- /container -->
 
     <script src="/bower_components/jquery/dist/jquery.js"></script>

@@ -116,8 +116,9 @@ $app->get('/1day/chapter4',function($request,$response,$args) {
 });
 
 $app->get('/1day/chapter5',function($request,$response,$args) {
-    $con = $this->get('pdo');
     $id = mt_rand(1,100000);
+
+    $con = $this->get('pdo');
     $message = "キャンペーン中!!";
     $sql = '
             select count(*) as cnt
@@ -148,8 +149,9 @@ $app->get('/1day/chapter6',function($request,$response,$args) {
 });
 
 $app->get('/1day/chapter7',function($request,$response,$args) {
-    $con = $this->get('pdo');
     $id = mt_rand(1,100000);
+
+    $con = $this->get('pdo');
     $sql = 'select user_id,message,created_at from messages where user_id in (select follow_user_id from follows where user_id = ?) order by created_at desc limit 10';
     $sth = $con->prepare($sql);
     $sth->execute(array($id));
@@ -158,7 +160,7 @@ $app->get('/1day/chapter7',function($request,$response,$args) {
     return $this->view->render($response,'exercise_part7.twig',['title' => $id . 'さんのタイムライン','time_lines' => $time_lines]);
 });
 
-$app->get('/1day/chpter8',function($request,$response,$args) {
+$app->get('/1day/chapter8',function($request,$response,$args) {
     $con = $this->get('pdo');
     $sql = '
             select count(*) as cnt 
@@ -172,5 +174,5 @@ $app->get('/1day/chpter8',function($request,$response,$args) {
     $sth->execute(array(0));
     $result = $sth->fetch(PDO::FETCH_BOTH);
     $cnt = $result['cnt'];
-    echo "同性の平均年齢より高い男性は" . $cnt . "人です";
+    echo "男性ユーザの平均年齢より高い男性の人数は" . $cnt . "人です";
 });
