@@ -68,7 +68,7 @@ $app->get('/1day/chapter4',function($request,$response,$args) {
     $sth = $con->prepare($sql);
     $sth->execute();
     $sql = '
-            insert into user_birth_month_count
+            insert into user_birth_month_count(sex,month,count)
             select 0,1,count(*) from users where sex =0 and month(birthday) = 1
             union
             select 0,2,count(*) from users where sex =0 and month(birthday) = 2
