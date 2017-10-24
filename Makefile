@@ -19,7 +19,7 @@ php-setup:
 
 config-setup:
 	$(CP) src/config.php.template src/config.php
-	$(CHMOD) 775 src/cache
+	$(CHMOD) 777 src/cache
 
 front-setup:
 	$(NPM) install
