@@ -23,7 +23,7 @@ config-setup:
 
 front-setup:
 	$(NPM) install
-	$(BOWER) install
+	$(BOWER) --allow-root install
 
 db-setup:
 	$(ZCAT) ddl/users.dump.gz | $(MYSQL) -u$(DB_USER) -p$(DB_PASS) $(DB_SCHEMA)
